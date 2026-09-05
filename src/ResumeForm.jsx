@@ -34,13 +34,19 @@ function ResumeForm({
   } = resumeData;
 
   // =========================
+  // DEPLOYMENT API URL
+  // =========================
+
+  const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "http://localhost:5000";
+
+  // =========================
   // INPUT STATES
   // =========================
 
   const [skillInput, setSkillInput] =
     useState("");
-
-  // Experience
 
   const [company, setCompany] =
     useState("");
@@ -57,8 +63,6 @@ function ResumeForm({
     experienceDescription,
     setExperienceDescription,
   ] = useState("");
-
-  // Project
 
   const [
     projectTitle,
@@ -85,8 +89,6 @@ function ResumeForm({
     setProjectGithub,
   ] = useState("");
 
-  // Activity
-
   const [
     activityTitle,
     setActivityTitle,
@@ -107,8 +109,6 @@ function ResumeForm({
     setActivityDescription,
   ] = useState("");
 
-  // Certification
-
   const [
     certificationTitle,
     setCertificationTitle,
@@ -124,8 +124,6 @@ function ResumeForm({
     setCertificationYear,
   ] = useState("");
 
-  // AI
-
   const [
     isGenerating,
     setIsGenerating,
@@ -133,8 +131,6 @@ function ResumeForm({
 
   const [aiError, setAiError] =
     useState("");
-
-  // Validation
 
   const [
     errors,
@@ -151,7 +147,7 @@ function ResumeForm({
   });
 
   // =========================
-  // VALIDATION HELPERS
+  // VALIDATION
   // =========================
 
   const isValidEmail = (
@@ -221,7 +217,6 @@ function ResumeForm({
           "email",
           "Enter a valid email address."
         );
-
         return;
       }
 
@@ -243,7 +238,6 @@ function ResumeForm({
           "linkedin",
           "Enter a valid LinkedIn URL."
         );
-
         return;
       }
 
@@ -265,7 +259,6 @@ function ResumeForm({
           "github",
           "Enter a valid GitHub URL."
         );
-
         return;
       }
 
@@ -276,7 +269,7 @@ function ResumeForm({
     };
 
   // =========================
-  // LOAD ITEM FOR EDITING
+  // LOAD EDIT ITEM
   // =========================
 
   useEffect(() => {
@@ -295,9 +288,7 @@ function ResumeForm({
             editingItem.id
         );
 
-      if (!item) {
-        return;
-      }
+      if (!item) return;
 
       setRole(
         item.role || ""
@@ -332,9 +323,7 @@ function ResumeForm({
             editingItem.id
         );
 
-      if (!item) {
-        return;
-      }
+      if (!item) return;
 
       setProjectTitle(
         item.title || ""
@@ -389,9 +378,7 @@ function ResumeForm({
             editingItem.id
         );
 
-      if (!item) {
-        return;
-      }
+      if (!item) return;
 
       setActivityTitle(
         item.title || ""
@@ -428,9 +415,7 @@ function ResumeForm({
             editingItem.id
         );
 
-      if (!item) {
-        return;
-      }
+      if (!item) return;
 
       setCertificationTitle(
         item.title || ""
@@ -458,7 +443,7 @@ function ResumeForm({
   ]);
 
   // =========================
-  // RESET HELPERS
+  // RESET
   // =========================
 
   const resetExperience =
@@ -951,7 +936,7 @@ function ResumeForm({
     };
 
   // =========================
-  // TECHNICAL SKILLS
+  // SKILL CATEGORY
   // =========================
 
   const updateSkillCategory =
@@ -981,7 +966,7 @@ function ResumeForm({
 
         const response =
           await fetch(
-            "http://localhost:5000/api/generate-summary",
+            `${API_URL}/api/generate-summary`,
             {
               method: "POST",
 
@@ -1058,18 +1043,14 @@ function ResumeForm({
         </p>
       </div>
 
-      {/* =====================
-          PERSONAL
-      ====================== */}
+      {/* PERSONAL */}
 
       <div className="form-card">
-
         <div className="section-number">
           01
         </div>
 
         <div className="section-content">
-
           <h3>
             Personal Information
           </h3>
@@ -1255,7 +1236,6 @@ function ResumeForm({
           )}
 
           <div className="summary-label-row">
-
             <label>
               Professional Summary
             </label>
@@ -1274,7 +1254,6 @@ function ResumeForm({
                 ? "Generating..."
                 : "✨ Generate with AI"}
             </button>
-
           </div>
 
           <textarea
@@ -1293,22 +1272,17 @@ function ResumeForm({
               {aiError}
             </p>
           )}
-
         </div>
       </div>
 
-      {/* =====================
-          EDUCATION
-      ====================== */}
+      {/* EDUCATION */}
 
       <div className="form-card">
-
         <div className="section-number">
           02
         </div>
 
         <div className="section-content">
-
           <h3>
             Education
           </h3>
@@ -1380,7 +1354,6 @@ function ResumeForm({
           />
 
           <div className="two-input-grid">
-
             <div>
               <label>
                 Start Year
@@ -1420,15 +1393,11 @@ function ResumeForm({
                 }
               />
             </div>
-
           </div>
-
         </div>
       </div>
 
-      {/* =====================
-          PROJECTS
-      ====================== */}
+      {/* PROJECT */}
 
       <div
         id="form-project"
@@ -1439,13 +1408,11 @@ function ResumeForm({
             : ""
         }`}
       >
-
         <div className="section-number">
           03
         </div>
 
         <div className="section-content">
-
           <h3>
             {editingItem?.type ===
             "project"
@@ -1610,13 +1577,10 @@ function ResumeForm({
               Cancel Edit
             </button>
           )}
-
         </div>
       </div>
 
-      {/* =====================
-          EXPERIENCE
-      ====================== */}
+      {/* EXPERIENCE */}
 
       <div
         id="form-experience"
@@ -1627,13 +1591,11 @@ function ResumeForm({
             : ""
         }`}
       >
-
         <div className="section-number">
           04
         </div>
 
         <div className="section-content">
-
           <h3>
             {editingItem?.type ===
             "experience"
@@ -1767,13 +1729,10 @@ function ResumeForm({
               Cancel Edit
             </button>
           )}
-
         </div>
       </div>
 
-      {/* =====================
-          ACTIVITIES
-      ====================== */}
+      {/* ACTIVITY */}
 
       <div
         id="form-activity"
@@ -1784,13 +1743,11 @@ function ResumeForm({
             : ""
         }`}
       >
-
         <div className="section-number">
           05
         </div>
 
         <div className="section-content">
-
           <h3>
             {editingItem?.type ===
             "activity"
@@ -1916,13 +1873,10 @@ function ResumeForm({
               Cancel Edit
             </button>
           )}
-
         </div>
       </div>
 
-      {/* =====================
-          CERTIFICATIONS
-      ====================== */}
+      {/* CERTIFICATION */}
 
       <div
         id="form-certification"
@@ -1933,13 +1887,11 @@ function ResumeForm({
             : ""
         }`}
       >
-
         <div className="section-number">
           06
         </div>
 
         <div className="section-content">
-
           <h3>
             {editingItem?.type ===
             "certification"
@@ -2045,22 +1997,17 @@ function ResumeForm({
               Cancel Edit
             </button>
           )}
-
         </div>
       </div>
 
-      {/* =====================
-          SKILLS
-      ====================== */}
+      {/* SKILLS */}
 
       <div className="form-card">
-
         <div className="section-number">
           07
         </div>
 
         <div className="section-content">
-
           <h3>
             Technical Skills
           </h3>
@@ -2160,7 +2107,6 @@ function ResumeForm({
           </label>
 
           <div className="inline-form">
-
             <input
               type="text"
               placeholder="e.g. React"
@@ -2188,12 +2134,10 @@ function ResumeForm({
             >
               Add
             </button>
-
           </div>
 
           {skills.length > 0 && (
             <div className="form-tags">
-
               {skills.map(
                 (
                   skill,
@@ -2220,14 +2164,12 @@ function ResumeForm({
                   </span>
                 )
               )}
-
             </div>
           )}
 
           <p className="field-help skill-help">
             These keywords help the AI generate your professional summary.
           </p>
-
         </div>
       </div>
 
