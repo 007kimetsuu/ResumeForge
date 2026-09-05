@@ -4,6 +4,7 @@ ResumeForge is a full-stack AI-powered resume builder that helps users create cl
 
 The application includes AI-generated professional summaries, dynamic resume sections, automatic local saving, editing and validation, and print-ready PDF export.
 
+🌐 **Live Demo:** https://resume-forge-topaz-delta.vercel.app/
 ---
 
 ## Features
